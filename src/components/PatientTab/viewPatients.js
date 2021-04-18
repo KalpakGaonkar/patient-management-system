@@ -282,11 +282,11 @@ const ViewPatients = ({match})=>{
               </Paper>
             </Grid>
             {/* Recent Deposits */}
-            <Grid item xs sm>
+            {/* <Grid item xs sm>
               <Paper className={fixedHeightPaper}>
                 <h3>Caretaker Contact Info</h3>
               </Paper>
-            </Grid>
+            </Grid> */}
             <Grid item xs={12}>
               <Paper className={autoHeightPaper}>
               <Grid item xs={12}>
