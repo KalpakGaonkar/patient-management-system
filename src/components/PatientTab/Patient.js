@@ -128,14 +128,17 @@ const Patient = () => {
         setImage(e.target.files[0]);
         }
     }
-            
-    const handleUpload = key => {
+    console.log(image);
+    const handleUpload = async(key) => {
         if (!Date.now) {
             Date.now = function() { return new Date().getTime(); }
         }
+        // var metadata = { contentType: "image/jpeg" };
+        
+            
         const uploadTask = fireDb.storage().ref(`images/${key} ${Date()}`).put(image);
 
-        var metadata = { cotentType: 'image/jpeg', };
+        
 
         uploadTask.on(
             "state_changed",

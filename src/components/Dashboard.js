@@ -113,7 +113,10 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
   },
   fixedHeight: {
-    height: 240,
+    height: 181,
+  },
+  autoHeight: {
+    height: "auto",
   },
 }));
 
@@ -127,6 +130,7 @@ export default function Dashboard() {
     setOpen(false);
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  const autoHeightPaper = clsx(classes.paper, classes.autoHeight);
 
   return (
     <div className={classes.root}>
@@ -173,24 +177,24 @@ export default function Dashboard() {
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
-            <Grid item xs={12} md={8} lg={9}>
+            <Grid item xs={12} sm>
               <Paper className={fixedHeightPaper}>
                 <Motivation />
               </Paper>
             </Grid>
-            <Grid item xs={12} md={4} lg={3}>
-              <Paper className={fixedHeightPaper}>
+            <Grid item xs={12} sm = {5}>
+              <Paper className={autoHeightPaper}>
                 <Total />
               </Paper>
             </Grid>
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <Paper className={classes.paper}>
                 <RecentActivity />
               </Paper>
-            </Grid>
+            </Grid> */}
           </Grid>
           <Box pt={4}>
-            <Copyright />
+            {/* <Copyright /> */}
           </Box>
         </Container>
       </main>

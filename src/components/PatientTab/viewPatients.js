@@ -132,7 +132,7 @@ const ViewPatients = ({match})=>{
         setPatientObjects({
           ...snapshot.val()
         })
-        console.log(patientObjects)
+        // console.log(patientObjects)
     } )
 }, [])
 
@@ -237,8 +237,8 @@ const ViewPatients = ({match})=>{
                <Grid container alignItems="center">
                <img src = {patientObjects.imageUrl} height="150" width="150" />
                </Grid> 
-                 {/* <br></br>
-                 <p><b>Current Stage: </b>&nbsp;&nbsp;{patientObjects.alzStage}</p> */}
+                 <br></br>
+                 <p><b>Current Stage: </b>&nbsp;&nbsp;{patientObjects.alzStage}</p>
               
                
                {/* <Grid container item xs={12} sm={6}>
@@ -289,7 +289,9 @@ const ViewPatients = ({match})=>{
             </Grid>
             <Grid item xs={12}>
               <Paper className={autoHeightPaper}>
+              <Grid item xs={12}>
                 <h3>Latest Updates</h3>
+              </Grid>
                 <p fontSize="50px"><b>Latest Updates: </b>&nbsp;&nbsp;{patientObjects.patientUpdates}</p>
               </Paper>
             </Grid>
