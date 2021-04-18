@@ -231,7 +231,7 @@ const ViewPatients = ({match})=>{
                 
               </Paper>
             </Grid> 
-            <Grid item xs sm={4}>
+            <Grid item xs>
               <Paper className={fixedHeightPaper}>
                <h3>Recent MRI Scans</h3> 
                <Grid container alignItems="center">
