@@ -1,20 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React , {useState, useEffect, Component } from "react"
+import React , {useState, useEffect} from "react"
 import PatientForm from "./PatientForm"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import {firestore, storage} from "../../firebase"
+import {storage} from "../../firebase"
 import { Link } from "react-router-dom"
-import { Inset } from "@winderful/react-spacing"
-import Box from '@material-ui/core/Box'
-import Popup from '../Popup'
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import fireDb from '../../firebase'
-import { positions } from '@material-ui/system'
-import axios from 'axios';
-import Button from 'react-bootstrap/Button'
-
-
+import Button from '@material-ui/core/Button';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 
 function rand() {
@@ -22,8 +16,8 @@ function rand() {
   }
   
   function getModalStyle() {
-    const top = 50 + rand();
-    const left = 50 + rand();
+    const top = 100 + rand();
+    const left = 100 + rand();
   
     return {
       top: `${top}%`,
@@ -31,13 +25,12 @@ function rand() {
       transform: `translate(-${top}%, -${left}%)`,
     };
   }
-
-
-
+  
   const useStyles = makeStyles((theme) => ({
     paper: {
       position: 'absolute',
-      width: 400,
+      width: 435,
+      height: 200,
       backgroundColor: theme.palette.background.paper,
       border: '2px solid #000',
       boxShadow: theme.shadows[5],
@@ -47,20 +40,17 @@ function rand() {
 
 const Patient = () => {
 
-    
-
     var [patientObjects, setPatientObjects] = useState ({})
-    var [buttonPopup, setButtonPopup] = useState(false)
     var [currentId, setCurrentId] = useState('')
+    var ImgName, ImgUrl,files
 
-    useEffect(() => {
-        fetch("/predict").then(response =>
-            response.json().then(data => {
-                console.log(data);
-            })
-            );
-    }, []);
-    
+    // useEffect(() => {
+    //     fireDb.auth.onAuthStateChanged((id) => {
+    //         setCurrentId(id);
+    //     });
+    //     return () => {
+    //     }
+    // }, [])
     
     useEffect(() => {
         fireDb.database().ref('patients').on('value', snapshot=>{
@@ -122,10 +112,11 @@ const Patient = () => {
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
   const [ image,setImage ] = useState(null);
-  const [stage, setStage] = useState('');
+  const [ stage, setStage ] = useState('');
 
-  const handleOpen = () => {
-    setOpen(true);
+  const handleOpen = key => {
+    setOpen(true)
+    handleUpload(key)
   };
 
   const handleClose = () => {
@@ -136,61 +127,45 @@ const Patient = () => {
     if (e.target.files[0]){
         setImage(e.target.files[0]);
         }
-        var self = this;
-        // const formData = new FormData()
-        // formData.append('file', e.target.files[0], 'img.png')
-        
-        // axios.post('https://alzheimers-stage-prediction.herokuapp.com/predict', formData)
-        // .then(function(response, data) {
-        //         data = response.data;
-        //         console.log(data);
-        //         setStage(data);
-                
-        //         })
-        // console.log(stage)
-        
     }
             
-    const handleUpload = () => {
-        
-        const uploadTask = storage.ref(`images/${image.name}`).put(image);
-        
+    const handleUpload = key => {
+        if (!Date.now) {
+            Date.now = function() { return new Date().getTime(); }
+        }
+        const uploadTask = fireDb.storage().ref(`images/${key} ${Date()}`).put(image);
+
+        var metadata = { cotentType: 'image/jpeg', };
+
         uploadTask.on(
             "state_changed",
-            snapshot => {},
-            error => {
-                console.log(error);
+            function(snapshot){
+                // var progress = (snapshot.bytesTransferred/snapshot.totalBytes)*100;  progress bar..not required
             },
-            () => {
-                storage.ref("images").child(image.name)
+            
+            function(error){
+                alert("Error saving the image!")
+            },
+            function(){
+                uploadTask.snapshot.ref.getDownloadURL().then(function(url){
+                    ImgUrl=url;
+                    
+                    fireDb.database().ref(`patients/`).child(`${key}`).update({imageUrl:ImgUrl, alzStage:stage
+                    })
+                    
+                });
             }
         )
-        // setStage('');
+        
+        console.log("image:",key)
         }
-        // console.log(stage)
-    console.log("image:",image)
+        
+    
+
   
-    
-    const body = (
-    
-    <div style={modalStyle} className={classes.paper}>
-      <h2 id="simple-modal-title">Upload patients latest MRI Scan</h2>
-      <p id="simple-modal-description">
-        Select Image in .jpg format
-      </p>
-      <input type='file' onChange={handleChange} ></input>
-      {stage.length > 0 &&
-            <button type="submit" onClick={handleUpload} >Upload</button>
-      
-    }
-    {stage.length > 0 &&
-        <Box border={2} width="auto" mx="auto" mt={3} p={2} position="center" bgcolor="grey.700" color="white" fontWeight="fontWeightBold">
-            { stage }
-        </Box>}   
-            </div>
-    );
     return (
         <>
+        {currentId.displayName}
 
             <div className="row">
                 <div className="col-md-5">
@@ -202,7 +177,9 @@ const Patient = () => {
             </div>
                     {/* <PatientForm {...([addOrEdit, currentId, patientObjects])} /> */}
                     <PatientForm {...({addOrEdit,currentId,patientObjects})} />
+                    
                 </div>
+                
                 <div className="col-md-7">
                 <br></br>
                 <br></br>
@@ -220,7 +197,7 @@ const Patient = () => {
                             {
                                 Object.keys(patientObjects).map(id =>{
                                     return <tr key={id}>
-                                        <td><Link to='/'>{patientObjects[id].fullName}</Link></td>
+                                        <td><Link to={'/viewpatient/'+id}>{patientObjects[id].fullName}</Link></td>
                                         <td>{patientObjects[id].mobile} </td>
                                         <td>{patientObjects[id].email} </td>
                                         <td>
@@ -230,16 +207,37 @@ const Patient = () => {
                                             <a className='btn text-danger' onClick={() => deleteDetail(id)}>
                                                 <FontAwesomeIcon icon='trash-alt' />
                                             </a>
-                                            <a className='btn' onClick={handleOpen }>
+                                            <a className='btn' onClick={() => handleOpen(id) }>
                                                 <FontAwesomeIcon icon='upload' />
                                             </a>
+                                            
                                             <Modal
                                                 open={open}
                                                 onClose={handleClose}
                                                 aria-labelledby="simple-modal-title"
                                                 aria-describedby="simple-modal-description"
                                             >
-                                                {body}
+                                                {
+                                                    <div style={modalStyle} className={classes.paper}>
+                                                    <h2 id="simple-modal-title">Upload patients latest MRI Scan</h2>
+                                                    {/* <p>{currentId}</p> */}
+                                                    <p id="simple-modal-description">
+                                                      Select Image in .jpg format
+                                                    </p>
+                                                    <input type='file' id='image' onChange={handleChange} ></input>
+                                                          {/* <button onClick={() => handleUpload} >Upload</button> */}
+                                                          <Button
+                                                            variant="contained"
+                                                            color="primary"
+                                                            className={classes.button}
+                                                            size="small"
+                                                            startIcon={<CloudUploadIcon />}
+                                                            onClick={() => handleUpload} 
+                                                        >
+                                                            Upload
+                                                        </Button>
+                                                  </div>
+                                                }
                                             </Modal>
                                         </td>
                                     </tr>
@@ -253,5 +251,4 @@ const Patient = () => {
         </>
     );
 }
-
 export default Patient;

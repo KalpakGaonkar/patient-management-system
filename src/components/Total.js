@@ -26,7 +26,7 @@ export default function Deposits() {
         on 15 March, 2021
       </Typography>
       <div>
-        <Link color="primary" href="/patienttab" onClick={preventDefault}>
+        <Link color="primary" href="#" onClick={preventDefault}>
           View Patient List
         </Link>
       </div>

@@ -16,20 +16,17 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
-    "@winderful/react-spacing": "github:nathanwinder/react-spacing",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
     "firebase": "^8.3.1",
+    "flask": "^0.2.10",
     "react": "^16.13.1",
     "react-bootstrap": "^1.4.3",
     "react-dom": "^16.13.1",
+    "react-material-ui-form-validator": "^2.1.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3",
     "reactjs-popup": "^2.0.4"
-  },
-  "engines": {
-    "node": ">=15.11.0",
-    "npm": ">=7.6.3"
   },
   "scripts": {
     "start": "react-scripts start",

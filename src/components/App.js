@@ -13,15 +13,10 @@ import UpdateProfile from "./UpdateProfile"
 import PatientTab from "./PatientTab/PatientTab"
 import Patient from "./PatientTab/Patient"
 import PatientForm from './PatientTab/PatientForm'
+import ViewPatients from './PatientTab/viewPatients'
 
 function App() {
   return (
-    // <Container
-    //   className="d-flex align-items-center justify-content-center"
-    //   style={{ minHeight: "100vh" }}
-    // >
-    //   <div className="w-100" style={{ maxWidth: "400px" }}>
-    // <Container className="d-flex align-items-center justify-content-center">
       <div >
         <Router>
           <AuthProvider>
@@ -35,11 +30,11 @@ function App() {
               <Route path="/patienttab" component={PatientTab} />
               <Route path="/patientForm" component={PatientForm} />
               <Route path="/patient" component={Patient} />
+              <Route path="/viewpatient/:id" component={ViewPatients} />
             </Switch>
           </AuthProvider>
         </Router>
       </div>
-    // </Container>
   )
 }
 

@@ -1,18 +1,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React ,{useState,useEffect} from "react"
 import { Form } from "react-bootstrap"
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import AccountBoxRoundedIcon from '@material-ui/icons/AccountBoxRounded';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
-import HomeIcon from '@material-ui/icons/Home';
 import PhoneAndroidTwoToneIcon from '@material-ui/icons/PhoneAndroidTwoTone';
+import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 
 const PatientForm = (props) => {
     const initialFieldValues= {
         fullName:"",
         mobile:"",
         email:"",
-        address:""
+        address:"",
+        imageUrl:"",
+        alzStage:"",
+        patientUpdates:""
     }
     var [values,setValues] = useState(initialFieldValues)
 
@@ -39,6 +41,17 @@ const PatientForm = (props) => {
         e.preventDefault();
          props.addOrEdit(values);
     };
+
+    // const state = {
+    //     email: '',
+    // }
+
+    // const handleChange = (event) => {
+    //     const email = event.target.value;
+    //     this.setState({ email });
+    // }
+    // const { email } = this.state;
+    
     return (
         <Form autoComplete="off" onSubmit={handleFormSubmit}>
             <div className="form-group input-group">
@@ -80,7 +93,9 @@ const PatientForm = (props) => {
             </div>
             </div>
             </div>
+            
         </Form>
+        
     );
 }
 export default PatientForm;

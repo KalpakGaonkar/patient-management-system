@@ -22,12 +22,12 @@ export const mainListItems = (
       </ListItemIcon>
       <a href="/patienttab">My Patients</a>
     </ListItem>
-    <ListItem button>
+    {/* <ListItem button>
       <ListItemIcon>
         <EventIcon/>
       </ListItemIcon>
       <a href="/events">Events</a>
-    </ListItem>
+    </ListItem> */}
   </div>
 );
 

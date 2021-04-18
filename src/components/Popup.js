@@ -34,7 +34,7 @@ export default function PopUp () {
         <Popup trigger={<FontAwesomeIcon icon='upload'  />} position="right center">
         <div className='popup'>
         <div className='popup-inner'>
-        <h3>Upload patients latest MRI Scan</h3>
+        <h5>Upload patients latest MRI Scan</h5>
         <br></br>
             <button className='close-btn' >Close</button>
             {/* <CloseButton/> */}
