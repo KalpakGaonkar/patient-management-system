@@ -237,8 +237,8 @@ const ViewPatients = ({match})=>{
                <Grid container alignItems="center">
                <img src = {patientObjects.imageUrl} height="150" width="150" />
                </Grid> 
-                 <br></br>
-                 <p><b>Current Stage: </b>&nbsp;&nbsp;{patientObjects.alzStage}</p>
+                 {/* <br></br>
+                 <p><b>Current Stage: </b>&nbsp;&nbsp;{patientObjects.alzStage}</p> */}
               
                
                {/* <Grid container item xs={12} sm={6}>
