@@ -113,10 +113,12 @@ const Patient = () => {
   const [open, setOpen] = React.useState(false);
   const [ image,setImage ] = useState(null);
   const [ stage, setStage ] = useState('');
+  const [ userKey, setUserKey ] = useState('')
 
   const handleOpen = key => {
     setOpen(true)
-    handleUpload(key)
+    
+      
   };
 
   const handleClose = () => {
@@ -129,7 +131,7 @@ const Patient = () => {
         }
     }
     console.log(image);
-    const handleUpload = async(key) => {
+    function handleUpload(){
         if (!Date.now) {
             Date.now = function() { return new Date().getTime(); }
         }
@@ -210,7 +212,7 @@ const Patient = () => {
                                             <a className='btn text-danger' onClick={() => deleteDetail(id)}>
                                                 <FontAwesomeIcon icon='trash-alt' />
                                             </a>
-                                            <a className='btn' onClick={() => handleOpen(id) }>
+                                            <a className='btn' onClick={function(event){ handleOpen(id); setUserKey(id)}}>
                                                 <FontAwesomeIcon icon='upload' />
                                             </a>
                                             
@@ -235,7 +237,7 @@ const Patient = () => {
                                                             className={classes.button}
                                                             size="small"
                                                             startIcon={<CloudUploadIcon />}
-                                                            onClick={() => handleUpload} 
+                                                            onClick={() => handleUpload()} 
                                                         >
                                                             Upload
                                                         </Button>
