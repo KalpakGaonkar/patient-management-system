@@ -138,7 +138,7 @@ const Patient = () => {
         // var metadata = { contentType: "image/jpeg" };
         
             
-        const uploadTask = fireDb.storage().ref(`images/${key} ${Date()}`).put(image);
+        const uploadTask = fireDb.storage().ref(`images/${userKey} ${Date()}`).put(image);
 
         
 
@@ -155,14 +155,14 @@ const Patient = () => {
                 uploadTask.snapshot.ref.getDownloadURL().then(function(url){
                     ImgUrl=url;
                     
-                    fireDb.database().ref(`patients/`).child(`${key}`).update({imageUrl:ImgUrl, alzStage:stage
+                    fireDb.database().ref(`patients/`).child(`${userKey}`).update({imageUrl:ImgUrl, alzStage:stage
                     })
                     
                 });
             }
         )
         
-        console.log("image:",key)
+        
         }
         
     
