@@ -25,7 +25,7 @@ The dashboard is the first page that opens up after the doctor completes the log
 
 ## List of Patients
 
-This page is visible after the doctor clicks on "My Patients" button from the navigation bar
+This page is visible after the doctor clicks on **My Patients** button from the navigation bar
 
 There are two sections to this page:
 
@@ -36,7 +36,7 @@ There are two sections to this page:
 
 ## Patient Details
 
-This page is visible after the doctor clicks on the patient's name on the "List of Patients" page
+This page is visible after the doctor clicks on the patient's name on the **List of Patients** page
 
 ![alt text](https://github.com/KalpakGaonkar/patient-management-system/blob/main/Screenshots/Screen%20Shot%202022-04-22%20at%2010.00.37%20AM.png)
 
